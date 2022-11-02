@@ -6,11 +6,16 @@ from POM.login.login_locators import LoginLocators as Locator
 from POM.login.login_page import LoginPage
 from credencials import *
 
+try:
+    password = os.environ['password']
+except KeyError:
+    import utils.secret_config
+    password = utils.secret_config.password
 class TestLogin:
 
-    @pytest.mark.parametrize("login, password", [(credencials["ligin_1"], os.environ['password']),
-                                                (credencials["ligin_2"], os.environ['password']),
-                                                (credencials["ligin_3"], os.environ['password'])])
+    @pytest.mark.parametrize("login, password", [(credencials["ligin_1"], password),
+                                                (credencials["ligin_2"], password),
+                                                (credencials["ligin_3"], password)])
     def test_correct_loggining(self, set_up, login:str, password:str) -> None:
         log = LoginPage(set_up)
         log.put_value_in_input(login, password)
@@ -18,7 +23,7 @@ class TestLogin:
 
     def test_incorrect_loggining_locekd_user(self, set_up) -> None:
         log = LoginPage(set_up)
-        log.put_value_in_input(credencials["ligin_4"], os.environ['password'])
+        log.put_value_in_input(credencials["ligin_4"], password)
         assert log.get_tittle(Locator.ERROR_MESSAGE).inner_text() == "Epic sadface: Sorry, this user has been locked " \
                                                                      "out."
 
