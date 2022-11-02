@@ -1,3 +1,4 @@
+import os
 import time
 from playwright.sync_api import Page, Playwright, sync_playwright, expect
 import pytest
@@ -7,9 +8,9 @@ from credencials import *
 
 class TestLogin:
 
-    @pytest.mark.parametrize("login, password", [(credencials["ligin_1"], credencials["password"]),
-                                                (credencials["ligin_2"], credencials["password"]),
-                                                (credencials["ligin_3"], credencials["password"])])
+    @pytest.mark.parametrize("login, password", [(credencials["ligin_1"], os.environ['password']),
+                                                (credencials["ligin_2"], os.environ['password']),
+                                                (credencials["ligin_3"], os.environ['password'])])
     def test_correct_loggining(self, set_up, login:str, password:str) -> None:
         log = LoginPage(set_up)
         log.put_value_in_input(login, password)
