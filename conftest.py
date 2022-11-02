@@ -2,7 +2,7 @@ import playwright
 import pytest
 from playwright.sync_api import Playwright
 
-@pytest.fixture(scope='session')
+@pytest.fixture()
 def set_up(browser):
     # browser = playwright.chromium.launch(headless=False)
     context = browser.new_context()
@@ -11,5 +11,4 @@ def set_up(browser):
     page.set_default_timeout(10000)
 
     yield page
-    context.close()
-    browser.close()
+    page.close()
