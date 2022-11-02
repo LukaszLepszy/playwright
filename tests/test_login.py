@@ -18,7 +18,7 @@ class TestLogin:
 
     def test_incorrect_loggining_locekd_user(self, set_up) -> None:
         log = LoginPage(set_up)
-        log.put_value_in_input(credencials["ligin_4"], credencials["password"])
+        log.put_value_in_input(credencials["ligin_4"], os.environ['password'])
         assert log.get_tittle(Locator.ERROR_MESSAGE).inner_text() == "Epic sadface: Sorry, this user has been locked " \
                                                                      "out."
 
