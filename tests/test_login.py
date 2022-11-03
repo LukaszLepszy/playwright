@@ -6,11 +6,8 @@ from POM.login.login_locators import LoginLocators as Locator
 from POM.login.login_page import LoginPage
 from credencials import *
 
-try:
-    password = os.environ['password']
-except KeyError:
-    import utils.secret_config
-    password = utils.secret_config.password
+password = os.environ['password']
+
 class TestLogin:
 
     @pytest.mark.parametrize("login, password", [(credencials["ligin_1"], password),
